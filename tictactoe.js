@@ -207,6 +207,38 @@ GameController = (function() {
     return { updatePlayerName, getPlayerInfo, getActivePlayer, playRound, haveWinner, resetGame };
 })();
 
+const UIController = (function() {
+    const xImageSrc = "images/X.png";
+    const oImageSrc = "images/O.png";
+    const blankImageSrc = "images/blank.png";
+    const player1DisplayName = document.getElementById("score-player1-name")
+    const player2DisplayName = document.getElementById("score-player2-name")
+    const activePlayerName = document.querySelector("#active-player>span");
+    const activePlayerImage = document.querySelector("#active-player>img");
+    const newGameDialog = document.getElementById("new-game-dialog");
+    const inputPlayer1Name = document.getElementById("input-player1-name");
+    const inputPlayer2Name = document.getElementById("input-player2-name");
+    const playGameButton = document.getElementById("play-game-button");
+
+    // New Game Dialog handling
+    playGameButton.addEventListener("click", () => {
+        GameController.updatePlayerName(1, inputPlayer1Name.value);
+        player1DisplayName.textContent = inputPlayer1Name.value;
+        // When starting a new game, X is the first active player
+        activePlayerName.textContent = `${inputPlayer1Name.value}'s Turn: `;
+        activePlayerImage.src = xImageSrc;
+        inputPlayer1Name.value = "";
+
+        GameController.updatePlayerName(2, inputPlayer2Name.value);
+        player2DisplayName.textContent = inputPlayer2Name.value;
+        inputPlayer2Name.value = "";
+        console.log("Play Game Button clicked"); 
+        newGameDialog.close();
+    });
+    
+    newGameDialog.showModal();
+})();
+
 // For Jest testing
 if (typeof module === 'object') {
     module.exports = { GameBoard, GameController, Cell };

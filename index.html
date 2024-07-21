@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="tictactoe.js"></script>
+    <script src="tictactoe.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
 <body>
@@ -18,13 +18,13 @@
             <div id="score-container-left">
                 <div id="player1-container" class="player-container">
                     <img src="images/X.png">
-                    <span class="player-name">Player One</span>
-                    <span class="player-score">0</span>
+                    <span id="score-player1-name" class="player-name">Player One</span>
+                    <span id="score-player1-score" class="player-score">0</span>
                 </div>
                 <div id="player2-container" class="player-container">
                     <img src="images/O.png">
-                    <span class="player-name">Player Two</span>
-                    <span class="player-score">0</span>
+                    <span id="score-player2-name" class="player-name">Player Two</span>
+                    <span id="score-player1-score" class="player-score">0</span>
                 </div>
             </div>
             <div id="score-container-right">
@@ -48,5 +48,18 @@
             </div>
         </div>
     </main>
+    <dialog id="new-game-dialog">
+        <div>
+            <div>
+                <label for="input-player1-name">X name:</label>
+                <input type="text" id="input-player1-name">
+            </div>
+            <div>
+                <label for="input-player2-name">O name:</label>
+                <input type="text" id="input-player2-name">
+            </div>
+            <button id="play-game-button">Play Game</button>
+        </div>
+    </dialog>
 </body>
 </html>
