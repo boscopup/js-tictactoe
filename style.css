@@ -1,12 +1,26 @@
+:root {
+    --grid-gap: 10px;
+    --grid-line-offset: calc(var(--grid-gap) / 2);
+    --grid-line-thickness: 5px;
+    --grid-line-color: black;
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 header {
     height: 100px;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 60px;
 }
 
 #gameboard-container {
@@ -25,25 +39,52 @@ header {
     width: calc(min(100vh, 100vw) - 200px);
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    gap: 10px;
+    overflow: hidden;
+    gap: var(--grid-gap);
     margin: auto;
     justify-content: center;
     align-items: center;
+    padding: 0px;
 }
 
 .space {
+    position: relative;
     display: grid;
     grid-template: 1fr / 1fr;
     justify-content: center;
     align-items: center;
 }
+
+.space::before,
+.space::after {
+    content: "";
+    position: absolute;
+    background-color: var(--grid-line-color);
+    z-index: 1;
+}
+
+/* row lines */
+.space::after {
+    inline-size: 100vw;
+    block-size: var(--grid-line-thickness);
+    inset-inline-start: 0;
+    inset-block-start: calc(var(--grid-line-offset) * -1);
+}
+
+/* col lines */
+.space::before {
+    inline-size: var(--grid-line-thickness);
+    block-size: 100vh;
+    inset-block-start: 0;
+    inset-inline-start: calc(var(--grid-line-offset) * -1);
+}
+
 .space-img {
-    border: solid 1px gray;
     margin: auto;
     width: 100%;
     height: 100%;
 }
 
 footer {
-    height: 50px;
+    height: 25px;
 }
