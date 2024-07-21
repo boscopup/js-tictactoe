@@ -7,12 +7,17 @@
  *      6   7   8
  */
 GameBoard = (function() {
-    gameBoard = [];
+    let gameBoard = [];
+
+    const resetGameBoard = () => {
+        gameBoard = [];
+        for (let i = 0; i < 9; i++) {
+            gameBoard.push(Cell());
+        }
+    };
 
     /* Initialize the board */
-    for (let i = 0; i < 9; i++) {
-        gameBoard.push(Cell());
-    }
+    resetGameBoard();
 
     const getBoard = () => gameBoard;
 
@@ -29,7 +34,7 @@ GameBoard = (function() {
         console.log(printOut);
     }
 
-    return { getBoard, placeToken, printBoard };
+    return { getBoard, placeToken, printBoard, resetGameBoard };
 })();
 
 function Cell() {
@@ -66,6 +71,8 @@ GameController = (function() {
 
     // num will be 1 or 2
     const updatePlayerName = (num, name) => players[num-1].name = name;
+
+    const getPlayerInfo = () => players;
 
     let activePlayer = players[0];
 
@@ -180,15 +187,27 @@ GameController = (function() {
         // Diag 2
         if (values[2] != 0 && values[2] == values[4] && values[4] == values[6]) {
             gameOver = true;
-            winner = values[0];
-            winningLine.push("diag1");
+            winner = values[2];
+            winningLine.push("diag2");
         }
 
         return [ gameOver, winner, winningLine ];
     };
 
+    const resetGame = () => {
+        updatePlayerName(1, "Player One");
+        updatePlayerName(2, "Player Two");
+        activePlayer = players[0];
+        GameBoard.resetGameBoard();
+    };
+
     // Initial round
     printNewRound();
 
-    return { updatePlayerName, getActivePlayer, playRound, haveWinner };
+    return { updatePlayerName, getPlayerInfo, getActivePlayer, playRound, haveWinner, resetGame };
 })();
+
+// For Jest testing
+if (typeof module === 'object') {
+    module.exports = { GameBoard, GameController, Cell };
+}
