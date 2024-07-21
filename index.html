@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="tictactoe.js"></script>
     <title>Tic Tac Toe</title>
@@ -13,20 +14,39 @@
 <body>
     <header>Tic Tac Toe</header>
     <main>
-        <div id="gameboard-container">
-            <div id="gameboard">
-                <div class="space" data-board-square="0"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="1"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="2"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="3"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="4"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="5"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="6"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="7"><img src="images/blank.png" alt="" class="space-img"></div>
-                <div class="space" data-board-square="8"><img src="images/blank.png" alt="" class="space-img"></div>
+        <div id="score-container">
+            <div id="score-container-left">
+                <div id="player1-container" class="player-container">
+                    <img src="images/X.png">
+                    <span class="player-name">Player One</span>
+                    <span class="player-score">0</span>
+                </div>
+                <div id="player2-container" class="player-container">
+                    <img src="images/O.png">
+                    <span class="player-name">Player Two</span>
+                    <span class="player-score">0</span>
+                </div>
+            </div>
+            <div id="score-container-right">
+                <div id="active-player"><span>Player One's Turn:</span><img src="images/X.png"></div>
+                <button id="new-game-button">New Game</button>
+            </div>
+        </div>
+        <div id="gameboard-container-container">
+            <div id="gameboard-container">
+                <div id="gameboard">
+                    <div class="space" data-board-square="0"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="1"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="2"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="3"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="4"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="5"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="6"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="7"><img src="images/blank.png" alt="" class="space-img"></div>
+                    <div class="space" data-board-square="8"><img src="images/blank.png" alt="" class="space-img"></div>
+                </div>
             </div>
         </div>
     </main>
-    <footer>Design by Boscopup</footer>
 </body>
 </html>
