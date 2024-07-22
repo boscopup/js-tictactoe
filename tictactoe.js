@@ -219,24 +219,67 @@ const UIController = (function() {
     const inputPlayer1Name = document.getElementById("input-player1-name");
     const inputPlayer2Name = document.getElementById("input-player2-name");
     const playGameButton = document.getElementById("play-game-button");
+    const player1Score = document.getElementById("score-player1-score");
+    const player2Score = document.getElementById("score-player2-score");
+    const gameSpaces = []
 
     // New Game Dialog handling
     playGameButton.addEventListener("click", () => {
         GameController.updatePlayerName(1, inputPlayer1Name.value);
         player1DisplayName.textContent = inputPlayer1Name.value;
-        // When starting a new game, X is the first active player
-        activePlayerName.textContent = `${inputPlayer1Name.value}'s Turn: `;
-        activePlayerImage.src = xImageSrc;
-        inputPlayer1Name.value = "";
-
         GameController.updatePlayerName(2, inputPlayer2Name.value);
         player2DisplayName.textContent = inputPlayer2Name.value;
         inputPlayer2Name.value = "";
+        setActivePlayerDisplay();
         console.log("Play Game Button clicked"); 
         newGameDialog.close();
     });
-    
+
     newGameDialog.showModal();
+
+    let gameOver, winner, winningLines;
+
+    for (let i = 0; i < 9; i++) {
+        gameSpaces.push(document.querySelector(`[data-board-square="${i}"]>img`));
+        gameSpaces[i].addEventListener("click", () => {
+            console.log(`Space ${i} clicked`);
+
+            // When playing a round, the active player gets switched, so store
+            // the value of the active player before calling playRound, BUT
+            // don't change it until it is verified that the token was placed
+            // successfully
+            const tempImageSrc = activePlayerImage.src;
+            if (GameController.playRound(i)) {
+                setActivePlayerDisplay();
+                gameSpaces[i].src = tempImageSrc;
+            }
+            [ gameOver, winner, winningLines ] = GameController.haveWinner();
+            if (gameOver) {
+                // Open dialog
+                updateScore(winner);
+                showWinningLines(winningLines);
+            }
+        });
+    }
+
+    function setActivePlayerDisplay() {
+        const player = GameController.getActivePlayer();
+        const name = player.name;
+        const imageSrc = player.token == 1 ? xImageSrc : oImageSrc;
+        activePlayerName.textContent = `${name}'s Turn: `;
+        activePlayerImage.src = imageSrc;
+    }
+
+    function showWinningLines(lines) {
+        console.log(lines);
+    }
+
+    function updateScore(winner) {
+        const score = winner == 1 ? player1Score : player2Score;
+        numScore = Number(score.textContent);
+        numScore++;
+        score.textContent = `${numScore}`;
+    }
 })();
 
 // For Jest testing
