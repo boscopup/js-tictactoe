@@ -236,7 +236,6 @@ const UIController = (function() {
         player1DisplayName.textContent = inputPlayer1Name.value;
         GameController.updatePlayerName(2, inputPlayer2Name.value);
         player2DisplayName.textContent = inputPlayer2Name.value;
-        inputPlayer2Name.value = "";
         setActivePlayerDisplay();
         console.log("Play Game Button clicked"); 
         newGameDialog.close();
@@ -345,7 +344,7 @@ const UIController = (function() {
         player1Score.textContent = "0";
         player2Score.textContent = "0";
         beginningPlayer = player1DisplayName.textContent;
-        setActivePlayerDisplay();
+        newGameDialog.showModal();
     }
 })();
 
