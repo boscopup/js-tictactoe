@@ -226,7 +226,8 @@ const UIController = (function() {
     const endOfGameMessage = document.getElementById("end-of-game-message");
     const endOfGameImage = document.getElementById("end-of-game-image");
     const newGameButton = document.getElementById("new-game-button");
-    const newRoundButton = document.getElementById("new-round-button");
+    const dialogNewGameButton = document.getElementById("dialog-new-game-button");
+    const dialogNewRoundButton = document.getElementById("dialog-new-round-button");
     let beginningPlayer = player1DisplayName.textContent;  // Player 1 (X) at beginning of game
 
     // New Game Dialog handling
@@ -243,17 +244,20 @@ const UIController = (function() {
 
     newGameDialog.showModal();
 
-    // End of Game Dialog handling
+    // This is the button on the main page
     newGameButton.addEventListener("click", () => {
-        // Reset board
+        newGame();
+    });
 
-        // Reset scores and active player
+    // End of Game Dialog handling
+    dialogNewGameButton.addEventListener("click", () => {
+        newGame();
 
         // Open New Game dialog with existing player names
         endOfGameDialog.close();
     });
 
-    newRoundButton.addEventListener("click", () => {
+    dialogNewRoundButton.addEventListener("click", () => {
         // Reset UI board and internal board
         resetBoard();
         GameBoard.resetGameBoard();
@@ -330,6 +334,18 @@ const UIController = (function() {
         for (let i = 0; i < 9; i++) {
             gameSpaces[i].src = blankImageSrc;
         }
+    }
+
+    function newGame() {
+        // Reset UI board and internal game
+        resetBoard();
+        GameController.resetGame();
+
+        // Reset scores and active player
+        player1Score.textContent = "0";
+        player2Score.textContent = "0";
+        beginningPlayer = player1DisplayName.textContent;
+        setActivePlayerDisplay();
     }
 })();
 
