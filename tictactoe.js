@@ -293,11 +293,11 @@ const UIController = (function() {
                 showWinningLines(winningLines);
                 switch (winner) {
                     case 1:
-                        endOfGameMessage.textContent = player1DisplayName.textContent;
+                        endOfGameMessage.textContent = `${player1DisplayName.textContent} wins!!!`;
                         endOfGameImage.src = xImageSrc;
                         break;
                     case 2:
-                        endOfGameMessage.textContent = player2DisplayName.textContent;
+                        endOfGameMessage.textContent = `${player2DisplayName.textContent} wins!!!`;
                         endOfGameImage.src = oImageSrc;
                         break;
                     case null:
