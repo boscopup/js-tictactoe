@@ -204,7 +204,7 @@ GameController = (function() {
     // Initial round
     printNewRound();
 
-    return { updatePlayerName, getPlayerInfo, getActivePlayer, playRound, haveWinner, resetGame };
+    return { updatePlayerName, getPlayerInfo, getActivePlayer, switchPlayer, playRound, haveWinner, resetGame };
 })();
 
 const UIController = (function() {
@@ -222,6 +222,12 @@ const UIController = (function() {
     const player1Score = document.getElementById("score-player1-score");
     const player2Score = document.getElementById("score-player2-score");
     const gameSpaces = []
+    const endOfGameDialog = document.getElementById("end-of-game-dialog");
+    const endOfGameMessage = document.getElementById("end-of-game-message");
+    const endOfGameImage = document.getElementById("end-of-game-image");
+    const newGameButton = document.getElementById("new-game-button");
+    const newRoundButton = document.getElementById("new-round-button");
+    let beginningPlayer = player1DisplayName.textContent;  // Player 1 (X) at beginning of game
 
     // New Game Dialog handling
     playGameButton.addEventListener("click", () => {
@@ -237,6 +243,30 @@ const UIController = (function() {
 
     newGameDialog.showModal();
 
+    // End of Game Dialog handling
+    newGameButton.addEventListener("click", () => {
+        // Reset board
+
+        // Reset scores and active player
+
+        // Open New Game dialog with existing player names
+        endOfGameDialog.close();
+    });
+
+    newRoundButton.addEventListener("click", () => {
+        // Reset UI board and internal board
+        resetBoard();
+        GameBoard.resetGameBoard();
+
+        // Set active player, alternating who gets to go first each round
+        if (GameController.getActivePlayer.name === beginningPlayer) {
+            GameController.switchPlayer();
+            beginningPlayer = GameController.getActivePlayer.name;
+        }
+        endOfGameDialog.close();
+    });
+
+    // Initialize spaces and run the game
     let gameOver, winner, winningLines;
 
     for (let i = 0; i < 9; i++) {
@@ -258,6 +288,21 @@ const UIController = (function() {
                 // Open dialog
                 updateScore(winner);
                 showWinningLines(winningLines);
+                switch (winner) {
+                    case 1:
+                        endOfGameMessage.textContent = player1DisplayName.textContent;
+                        endOfGameImage.src = xImageSrc;
+                        break;
+                    case 2:
+                        endOfGameMessage.textContent = player2DisplayName.textContent;
+                        endOfGameImage.src = oImageSrc;
+                        break;
+                    case null:
+                        endOfGameMessage.textContent = "Tie game!";
+                        endOfGameImage.src = blankImageSrc;
+                        break;
+                }
+                endOfGameDialog.showModal();
             }
         });
     }
@@ -279,6 +324,12 @@ const UIController = (function() {
         numScore = Number(score.textContent);
         numScore++;
         score.textContent = `${numScore}`;
+    }
+
+    function resetBoard() {
+        for (let i = 0; i < 9; i++) {
+            gameSpaces[i].src = blankImageSrc;
+        }
     }
 })();
 

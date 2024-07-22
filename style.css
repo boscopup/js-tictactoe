@@ -205,3 +205,15 @@ main {
     grid-template-rows: 1fr 1fr 1fr;
     gap: 10px;
 }
+
+/** End of Game Dialog **/
+#end-of-game-dialog > div {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+#end-of-game-image {
+    width: 50px;
+    height: 50px;
+}
