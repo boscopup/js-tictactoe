@@ -319,6 +319,50 @@ const UIController = (function() {
     }
 
     function showWinningLines(lines) {
+        lines.forEach(line => {
+            switch(line) {
+                case "row1":
+                    gameSpaces[0].classList.add("space-winning-line");
+                    gameSpaces[1].classList.add("space-winning-line");
+                    gameSpaces[2].classList.add("space-winning-line");
+                    break;
+                case "row2":
+                    gameSpaces[3].classList.add("space-winning-line");
+                    gameSpaces[4].classList.add("space-winning-line");
+                    gameSpaces[5].classList.add("space-winning-line");
+                    break;
+                case "row3":
+                    gameSpaces[6].classList.add("space-winning-line");
+                    gameSpaces[7].classList.add("space-winning-line");
+                    gameSpaces[8].classList.add("space-winning-line");
+                    break;
+                case "col1":
+                    gameSpaces[0].classList.add("space-winning-line");
+                    gameSpaces[3].classList.add("space-winning-line");
+                    gameSpaces[6].classList.add("space-winning-line");
+                    break;
+                case "col2":
+                    gameSpaces[1].classList.add("space-winning-line");
+                    gameSpaces[4].classList.add("space-winning-line");
+                    gameSpaces[7].classList.add("space-winning-line");
+                    break;
+                case "col3":
+                    gameSpaces[2].classList.add("space-winning-line");
+                    gameSpaces[5].classList.add("space-winning-line");
+                    gameSpaces[8].classList.add("space-winning-line");
+                    break;
+                case "diag1":
+                    gameSpaces[0].classList.add("space-winning-line");
+                    gameSpaces[4].classList.add("space-winning-line");
+                    gameSpaces[8].classList.add("space-winning-line");
+                    break;
+                case "diag2":
+                    gameSpaces[2].classList.add("space-winning-line");
+                    gameSpaces[4].classList.add("space-winning-line");
+                    gameSpaces[6].classList.add("space-winning-line");
+                    break;
+            }
+        });
         console.log(lines);
     }
 
@@ -332,6 +376,7 @@ const UIController = (function() {
     function resetBoard() {
         for (let i = 0; i < 9; i++) {
             gameSpaces[i].src = blankImageSrc;
+            gameSpaces[i].classList.remove("space-winning-line");
         }
     }
 
